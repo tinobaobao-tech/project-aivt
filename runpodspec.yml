@@ -1,0 +1,28 @@
+# RunPod Serverless 設定檔
+
+build:
+  # 支援的 GPU 類型
+  gpu: "NVIDIA RTX GPU"
+  cuda: "12.1"
+
+# 運行命令
+# 這會在容器啟動時執行
+cmd: ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+# 監聽端口（RunPod 必須知道）
+port: 8000
+
+# 健康檢查路徑
+healthCheck:
+  path: "/health"
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+# 環境變數（會與 RunPod 控制台設定合併）
+env:
+  - key: HOST
+    value: "0.0.0.0"
+  - key: PORT
+    value: "8000"
+  - key: LOG_LEVEL
+    value: "INFO"
